@@ -18,6 +18,7 @@ import java.util.Calendar;
  * <br/>email: weiz@mobilereality.org
  * <br/>Version：1.0
  * <br/>description:
+ * 继承自 SurfaceView 的时钟控件
  * <br/>
  * =========================
  */
