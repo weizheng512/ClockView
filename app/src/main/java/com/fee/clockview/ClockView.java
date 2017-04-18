@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 import java.util.Calendar;
 
@@ -27,7 +25,7 @@ import java.util.Calendar;
 public class ClockView extends View {
     private Paint mArcPaint;
     private int radius = 300;
-    private int strokeWidth = 2;
+    private int strokeWidth = 4;
     //每一小格之间的角度
     private int fixAngle = 6;
     private int b_len = 50;
@@ -41,17 +39,17 @@ public class ClockView extends View {
     private Paint sPaint;
     //小时  分钟  秒钟
     private int h, m, s;
-    private int len =50;
+    private int len = 50;
 
     private ValueAnimator mValueAnimator;
     private int currentValue;
 
     public ClockView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ClockView(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public ClockView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -61,44 +59,34 @@ public class ClockView extends View {
 
     private void init() {
 
-            mArcPaint = new Paint();
-            mArcPaint.setAntiAlias(true);
-            mArcPaint.setStrokeWidth(strokeWidth);
+        mArcPaint = new Paint();
+        mArcPaint.setAntiAlias(true);
+        mArcPaint.setStrokeWidth(strokeWidth);
 
-            mTextBound = new Rect();
+        mTextBound = new Rect();
 
-            hPaint = new Paint();
-            hPaint.setAntiAlias(true);
-            hPaint.setColor(Color.YELLOW);
-            hPaint.setAntiAlias(true);
-            hPaint.setStyle(Paint.Style.FILL);
-            hPaint.setStrokeWidth(2);
+        hPaint = new Paint();
+        hPaint.setAntiAlias(true);
+        hPaint.setColor(Color.YELLOW);
+        hPaint.setAntiAlias(true);
+        hPaint.setStyle(Paint.Style.FILL);
+        hPaint.setStrokeWidth(10);
 
-            minPaint = new Paint();
-            minPaint.setAntiAlias(true);
-            minPaint.setColor(Color.MAGENTA);
-            minPaint.setAntiAlias(true);
-            minPaint.setStyle(Paint.Style.FILL);
-            minPaint.setStrokeWidth(2);
+        minPaint = new Paint();
+        minPaint.setAntiAlias(true);
+        minPaint.setColor(Color.MAGENTA);
+        minPaint.setAntiAlias(true);
+        minPaint.setStyle(Paint.Style.FILL);
+        minPaint.setStrokeWidth(7);
 
-            sPaint = new Paint();
-            sPaint.setAntiAlias(true);
-            sPaint.setColor(Color.RED);
-            sPaint.setAntiAlias(true);
-            sPaint.setStyle(Paint.Style.FILL);
-            sPaint.setStrokeWidth(2);
+        sPaint = new Paint();
+        sPaint.setAntiAlias(true);
+        sPaint.setColor(Color.BLACK);
+        sPaint.setAntiAlias(true);
+        sPaint.setStyle(Paint.Style.FILL);
+        sPaint.setStrokeWidth(5);
 
-        mValueAnimator = ValueAnimator.ofInt(0, 1000);
-        mValueAnimator.setDuration(1000);
-        mValueAnimator.setInterpolator(new LinearInterpolator());
-        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                currentValue = (int) animation.getAnimatedValue();
-                Log.d("ClockView", "---fee---onAnimationUpdate():" + currentValue);
-            }
-        });
-        mValueAnimator.start();
+
     }
 
     @Override
@@ -113,6 +101,7 @@ public class ClockView extends View {
         postInvalidateDelayed(1000);
         invalidate();
     }
+
     private void drawPoint(Canvas canvas) {
         mArcPaint.setColor(Color.WHITE);
         canvas.drawCircle(0, 0, 10, mArcPaint);
@@ -133,11 +122,12 @@ public class ClockView extends View {
 
     /**
      * 画秒针
+     *
      * @param canvas
      */
     private void drawS(Canvas canvas) {
 
-        double angle = (s * fixAngle - 90)*Math.PI/180;
+        double angle = (s * fixAngle - 90) * Math.PI / 180;
         int mSecondLen = 280;
         int startX = -(int) (len * Math.cos(angle));
         int startY = -(int) (len * Math.sin(angle));
@@ -150,10 +140,11 @@ public class ClockView extends View {
 
     /**
      * 画分针
+     *
      * @param canvas
      */
     private void drawM(Canvas canvas) {
-        double angle = (m * 6 - 90)*Math.PI/180;
+        double angle = (m * 6 - 90) * Math.PI / 180;
         int mMinLen = 250;
         int startX = -(int) (len * Math.cos(angle));
         int startY = -(int) (len * Math.sin(angle));
@@ -165,12 +156,13 @@ public class ClockView extends View {
 
     /**
      * 画时针
+     *
      * @param canvas
      */
     private void drawH(Canvas canvas) {
 
-        double angle = (h * 6 * 5 - 90)*Math.PI/180+((m *1.0f/60 *30)*Math.PI/180);
-        int mHourLen = 230;
+        double angle = (h * 6 * 5 - 90) * Math.PI / 180 + ((m * 1.0f / 60 * 30) * Math.PI / 180);
+        int mHourLen = 200;
         int startX = -(int) (len * Math.cos(angle));
         int startY = -(int) (len * Math.sin(angle));
 
@@ -181,6 +173,7 @@ public class ClockView extends View {
 
     /**
      * 画刻度盘  通过画直线然后再旋转画布实现
+     *
      * @param canvas
      */
     private void drawScale(Canvas canvas) {
@@ -208,7 +201,7 @@ public class ClockView extends View {
                 len = b_len;
 
             } else {
-                mArcPaint.setColor(Color.GREEN);
+                mArcPaint.setColor(Color.GRAY);
                 len = s_len;
             }
             canvas.drawLine(0, -radius, 0, -(radius + len), mArcPaint);

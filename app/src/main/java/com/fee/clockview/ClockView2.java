@@ -114,7 +114,7 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
                 bitmapCache = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_4444);
             }
             canvas1 = new Canvas(bitmapCache);
-            canvas1.drawColor(Color.BLACK);
+            canvas1.drawColor(Color.parseColor("#d0d9ff"));
             drawCanvas(canvas1);
             canvas.drawBitmap(bitmapCache, 0, 0, mPaint);
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
         int endX = (int) ((mSecondLen - len) * Math.cos(angle));
         int endY = (int) ((mSecondLen - len) * Math.sin(angle));
 
-        mPaint.setStrokeWidth(2);
+        mPaint.setStrokeWidth(3);
         mPaint.setColor(Color.RED);
         canvas.drawLine(startX, startY, endX, endY, mPaint);
 
@@ -191,7 +191,7 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
 
         int endX = (int) ((mMinLen - len) * Math.cos(angle));
         int endY = (int) ((mMinLen - len) * Math.sin(angle));
-        mPaint.setStrokeWidth(4);
+        mPaint.setStrokeWidth(5);
         mPaint.setColor(Color.YELLOW);
         canvas.drawLine(startX, startY, endX, endY, mPaint);
     }
@@ -204,14 +204,14 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
     private void drawH(Canvas canvas) {
 
         double angle = (h * 6 * 5 - 90) * Math.PI / 180 + ((m * 1.0f / 60 * 30) * Math.PI / 180);
-        int mHourLen = 210;
+        int mHourLen = 200;
         int startX = -(int) (len * Math.cos(angle));
         int startY = -(int) (len * Math.sin(angle));
 
         int endX = (int) ((mHourLen - len) * Math.cos(angle));
         int endY = (int) ((mHourLen - len) * Math.sin(angle));
         mPaint.setColor(Color.MAGENTA);
-        mPaint.setStrokeWidth(6);
+        mPaint.setStrokeWidth(8);
         canvas.drawLine(startX, startY, endX, endY, mPaint);
     }
 
@@ -226,7 +226,7 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
         int currentP = 0;
         String text = "";
         int l;
-        mPaint.setStrokeWidth(2);
+        mPaint.setStrokeWidth(4);
 
         for (int i = 0; i < 360 / fixAngle; i++) {
             if (i % 5 == 0) {
@@ -246,7 +246,7 @@ public class ClockView2 extends SurfaceView implements SurfaceHolder.Callback {
                 l = b_len;
 
             } else {
-                mPaint.setColor(Color.GREEN);
+                mPaint.setColor(Color.GRAY);
                 l = s_len;
             }
             canvas.drawLine(0, -radius, 0, -(radius + l), mPaint);
