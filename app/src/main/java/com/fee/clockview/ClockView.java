@@ -99,7 +99,7 @@ public class ClockView extends View {
         drawPoint(canvas);
 
         postInvalidateDelayed(1000);
-        invalidate();
+        //invalidate();
     }
 
     private void drawPoint(Canvas canvas) {
